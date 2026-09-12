@@ -140,7 +140,7 @@ export default function EditorPage() {
                   view === 'preview' ? "hidden lg:block" : "block"
                 )}>
                   <div className="p-4 md:p-8 max-w-4xl mx-auto">
-                    <ResumeForm resumeId={id as string} initialData={resume} />
+                    <ResumeForm resumeId={id as string} initialData={resume || {}} />
                   </div>
                 </div>
                 <div className={clsx(

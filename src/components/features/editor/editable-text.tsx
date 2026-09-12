@@ -72,7 +72,7 @@ export default function EditableText({ value, path, placeholder = "", className 
       />
     ) : (
       <input
-        ref={inputRef}
+        ref={inputRef as React.RefObject<HTMLInputElement>}
         value={localValue}
         onChange={(e) => setLocalValue(e.target.value)}
         onBlur={handleBlur}

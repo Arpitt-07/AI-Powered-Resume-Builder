@@ -5,7 +5,7 @@ import { IResume } from "@/types/resume.types";
 export function useGetResumes() {
   return useQuery({
     queryKey: ["resumes"],
-    queryFn: () => api.get<IResume[]>("/resume"),
+    queryFn: () => api.get<{ resumes: IResume[], total: number, page: number, limit: number }>("/resume"),
     staleTime: 1000 * 60 * 5,
   });
 }
