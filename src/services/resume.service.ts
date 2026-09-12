@@ -14,7 +14,7 @@ export function useCreateResume() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => api.post<IResume>("/resume/create", {}),
+    mutationFn: () => api.post<IResume, {}>("/resume/create", {}),
     onSuccess: (newResume) => {
       queryClient.invalidateQueries({ queryKey: ["resumes"] });
       queryClient.invalidateQueries({ queryKey: ["resume", newResume._id] });
@@ -35,7 +35,7 @@ export function useUpdateResume() {
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<IResume> }) =>
-      api.patch<Partial<IResume>>(`/resume/${id}`, data),
+      api.patch<Partial<IResume>, Partial<IResume>>(`/resume/${id}`, data),
     onSuccess: (updatedResume) => {
       if (updatedResume._id) {
         queryClient.setQueryData(["resume", updatedResume._id], updatedResume);

@@ -12,7 +12,7 @@ import {
 
 export function useAIAction<TReq, TRes>(endpoint: string) {
   return useMutation({
-    mutationFn: (body: TReq) => api.post<TRes>(endpoint, body),
+    mutationFn: (body: TReq) => api.post<TRes, TReq>(endpoint, body),
   });
 }
 
