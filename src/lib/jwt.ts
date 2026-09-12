@@ -18,5 +18,5 @@ export const generateAccessToken = (payload: JWTPayload): string => {
 };
 
 export const verifyAccessToken = (token: string): JWTPayload => {
-  return jwt.verify(token, ACCESS_TOKEN_SECRET);
+  return jwt.verify(token, ACCESS_TOKEN_SECRET) as JWTPayload;
 };
