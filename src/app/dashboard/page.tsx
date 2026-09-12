@@ -26,7 +26,7 @@ export default function DashboardPage() {
   const { data: resumesResponse, isPending } = useGetResumes();
   const { mutate: deleteResume, isPending: isDeleting } = useDeleteResume();
 
-  const resumes = resumesResponse || [];
+  const resumes = resumesResponse?.resumes || [];
 
   const handleDelete = (id: string) => {
     if (confirm("Are you sure you want to delete this resume? This action cannot be undone.")) {

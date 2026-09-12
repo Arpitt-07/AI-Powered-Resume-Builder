@@ -30,13 +30,15 @@ export async function GET(req: NextRequest) {
 
         const total = await Resume.countDocuments({ userId });
 
-        return NextResponse.json<ApiResponse<IResume[] & { total: number, page: number, limit: number }>>({
+        return NextResponse.json<ApiResponse<{ resumes: IResume[], total: number, page: number, limit: number }>>({
             success: true,
             message: "Resumes fetched successfully",
-            data: resumes as unknown as IResume[],
-            total,
-            page,
-            limit
+            data: {
+                resumes,
+                total,
+                page,
+                limit
+            },
         });
 
     } catch (error) {
