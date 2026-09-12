@@ -1,6 +1,6 @@
 import { rateLimit } from '@/lib/rate-limiter';
 import { generateAiJson } from '@/lib/ai.service';
-import { atsScore } from '@/types/ai.types';
+import { AtsScoreRequest } from '@/types/ai.types';
 import { ApiResponse } from '@/types/api.types';
 import { NextRequest, NextResponse } from 'next/server'
 import { sendError } from '@/lib/api-utils';
@@ -14,7 +14,7 @@ export const POST = rateLimit(async (req: NextRequest) => {
             return sendError("Unauthorized", 401);
         }
 
-        const body: atsScore = await req.json();
+        const body: AtsScoreRequest = await req.json();
 
         const { resumeText, jobDescription } = body;
 

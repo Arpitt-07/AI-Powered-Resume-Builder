@@ -1,6 +1,6 @@
 import { rateLimit } from '@/lib/rate-limiter';
 import { generateAiJson } from '@/lib/ai.service';
-import { generateExperienceDesc } from '@/types/ai.types';
+import { GenerateExperienceDescRequest } from '@/types/ai.types';
 import { ApiResponse } from '@/types/api.types';
 import { NextRequest, NextResponse } from 'next/server'
 import { sendError } from '@/lib/api-utils';
@@ -14,7 +14,7 @@ export const POST = rateLimit(async (req: NextRequest) => {
             return sendError("Unauthorized", 401);
         }
 
-        const body: generateExperienceDesc = await req.json();
+        const body: GenerateExperienceDescRequest = await req.json();
 
         const { jobTitle, company, responsibilities, startDate, endDate } = body;
 

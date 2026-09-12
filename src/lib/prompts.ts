@@ -1,13 +1,13 @@
 import {
-    generateSummary,
-    generateSkills,
-    generateExperienceDesc,
-    generateProjectDesc,
-    improveContent,
-    atsScore
+    GenerateSummaryRequest,
+    GenerateSkillsRequest,
+    GenerateExperienceDescRequest,
+    GenerateProjectDescRequest,
+    ImproveContentRequest,
+    AtsScoreRequest
 } from '@/types/ai.types';
 
-export function getSummaryPrompt({ experience, skills, jobTitle }: generateSummary): string {
+export function getSummaryPrompt({ experience, skills, jobTitle }: GenerateSummaryRequest): string {
     return `You are an expert resume writer specializing in ATS-optimized content.
 
 Generate a professional resume summary based on the details below.
@@ -30,7 +30,7 @@ Rules:
 Output only the final summary text, with no preamble, explanation, or markdown formatting.`;
 }
 
-export function getSkillsPrompt({ experience, jobTitle }: generateSkills): string {
+export function getSkillsPrompt({ experience, jobTitle }: GenerateSkillsRequest): string {
     return `You are an expert technical recruiter and resume writer.
 
 Generate a list of relevant technical skills based on the details below.
@@ -55,7 +55,7 @@ Example output format:
 ["Skill1", "Skill2", "Skill3"]`;
 }
 
-export function getExperiencePrompt({ jobTitle, company, responsibilities, startDate, endDate }: generateExperienceDesc): string {
+export function getExperiencePrompt({ jobTitle, company, responsibilities, startDate, endDate }: GenerateExperienceDescRequest): string {
     return `You are an expert resume writer specializing in ATS-optimized content.
 
 Generate professional work experience bullet points for a resume based on the details below.
@@ -88,7 +88,7 @@ Example output format:
 ["Bullet point 1", "Bullet point 2", "Bullet point 3"]`;
 }
 
-export function getProjectPrompt({ projectName, technologies, projectDetails }: generateProjectDesc): string {
+export function getProjectPrompt({ projectName, technologies, projectDetails }: GenerateProjectDescRequest): string {
     return `You are an expert resume writer specializing in ATS-optimized content.
 
 Generate a professional project description for a resume based on the details below.
@@ -115,7 +115,7 @@ Example output format:
 ["Bullet point 1", "Bullet point 2", "Bullet point 3"]`;
 }
 
-export function getImproveContentPrompt({ content }: improveContent): string {
+export function getImproveContentPrompt({ content }: ImproveContentRequest): string {
     return `You are an expert resume writer and editor.
 
 Improve the following resume content to be more professional, impactful, and ATS-optimized.
@@ -134,7 +134,7 @@ Rules:
 - Output ONLY the improved content, with no preamble, explanation, or markdown formatting.`;
 }
 
-export function getAtsScorePrompt({ resumeText, jobDescription }: atsScore): string {
+export function getAtsScorePrompt({ resumeText, jobDescription }: AtsScoreRequest): string {
     return `You are an expert ATS (Applicant Tracking System) analyzer and professional resume reviewer.
 
 Analyze the resume text below and evaluate how well it would perform when parsed and ranked by a typical ATS, as well as its overall quality for human recruiters.

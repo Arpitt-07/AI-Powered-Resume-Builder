@@ -1,6 +1,6 @@
 import { rateLimit } from '@/lib/rate-limiter';
 import { generateAiContent } from '@/lib/ai.service';
-import { improveContent } from '@/types/ai.types';
+import { ImproveContentRequest } from '@/types/ai.types';
 import { ApiResponse } from '@/types/api.types';
 import { NextRequest, NextResponse } from 'next/server';
 import { sendError } from '@/lib/api-utils';
@@ -14,7 +14,7 @@ export const POST = rateLimit(async (req: NextRequest) => {
             return sendError("Unauthorized", 401);
         }
 
-        const body: improveContent = await req.json();
+        const body: ImproveContentRequest = await req.json();
         const { content } = body;
 
         if (!content?.trim()) {

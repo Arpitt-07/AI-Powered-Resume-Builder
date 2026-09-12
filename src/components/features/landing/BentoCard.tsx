@@ -16,11 +16,6 @@ export default function BentoCard({ children, className = "", delay = 0 }: Bento
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: [0.16, 1, 0.3, 1]
-      }}
       animate={{
         y: [0, -4, 0],
       }}
@@ -31,8 +26,11 @@ export default function BentoCard({ children, className = "", delay = 0 }: Bento
           ease: "easeInOut",
           delay: delay * 0.5,
         },
-        opacity: { duration: 0.8 },
-        y: { duration: 0.8 },
+        opacity: {
+          duration: 0.8,
+          delay,
+          ease: [0.16, 1, 0.3, 1]
+        },
       }}
       whileHover={{
         borderColor: "rgba(255, 255, 255, 0.2)",
