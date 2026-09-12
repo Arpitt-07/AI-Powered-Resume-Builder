@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #18181B;
+  --surface: #FFFFFF;
+  --border: #D4D4D8;
+  --studio-border: rgba(24, 24, 27, 0.1);
+  --muted: #71717A;
+
+  --primary: #18181B;
+  --secondary: #71717A;
+  --accent: #EF4444;
+
+  --accent-red: #FEE2E2;
+  --accent-red-text: #B91C1C;
+  --accent-blue: #DBEAFE;
+  --accent-blue-text: #1D4ED8;
+  --accent-green: #DCFCE7;
+  --accent-green-text: #15803D;
+  --accent-yellow: #FEF3C7;
+  --accent-yellow-text: #B45309;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+
+  --color-accent-red: var(--accent-red);
+  --color-accent-red-text: var(--accent-red-text);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-text: var(--accent-blue-text);
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-text: var(--accent-green-text);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-yellow-text: var(--accent-yellow-text);
+
+  --radius-mono: 6px;
+
+  --font-sans: 'Geist Sans', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-heading: 'Newsreader', serif;
+  --font-mono: 'Geist Mono', 'SF Mono', monospace;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
