@@ -5,7 +5,7 @@ import AuthGuard from "@/components/shared/auth-guard";
 import Button from "@/components/ui/button";
 import { useLogout } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
-import { useGetResumes, useDeleteResume } from "@/services/resume.service";
+import { useGetResumes, useDeleteResume, useCreateResume } from "@/services/resume.service";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -25,6 +25,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const { data: resumesResponse, isPending } = useGetResumes();
   const { mutate: deleteResume, isPending: isDeleting } = useDeleteResume();
+  const { mutate: createResume, isPending: isCreating } = useCreateResume();
 
   const resumes = resumesResponse?.resumes || [];
 
@@ -32,6 +33,17 @@ export default function DashboardPage() {
     if (confirm("Are you sure you want to delete this resume? This action cannot be undone.")) {
       deleteResume(id);
     }
+  };
+
+  const handleCreateResume = async () => {
+    createResume(undefined, {
+      onSuccess: (newResume) => {
+        router.push(`/editor/${newResume._id}`);
+      },
+      onError: () => {
+        alert("Failed to create resume. Please try again.");
+      },
+    });
   };
 
   return (
@@ -58,12 +70,13 @@ export default function DashboardPage() {
             <div className="col-span-12 lg:col-span-8 space-y-8">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl tracking-tight font-heading">Your Documents</h2>
-                <Link
-                  href="/resumes/create"
+                <Button
+                  onClick={handleCreateResume}
+                  disabled={isCreating}
                   className="inline-flex items-center justify-center bg-primary text-white rounded-mono px-4 py-2 text-sm font-medium transition-all duration-200 hover:opacity-90 active:scale-95 shadow-sm"
                 >
-                  + New Resume
-                </Link>
+                  {isCreating ? "Creating..." : "+ New Resume"}
+                </Button>
               </div>
 
               {isPending ? (
@@ -75,12 +88,14 @@ export default function DashboardPage() {
               ) : resumes.length === 0 ? (
                 <div className="p-12 border border-dashed border-border rounded-mono text-center space-y-4">
                   <p className="text-muted">No resumes found in your architecture.</p>
-                  <Link
-                    href="/resumes/create"
+                  <Button
+                    variant="ghost"
+                    onClick={handleCreateResume}
+                    disabled={isCreating}
                     className="text-foreground font-medium underline underline-offset-4 hover:text-muted transition-colors"
                   >
                     Create your first document
-                  </Link>
+                  </Button>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
