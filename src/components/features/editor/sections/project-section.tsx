@@ -65,7 +65,7 @@ export default function ProjectSection({
               <BulletList
                 name={`projects.${projIndex}.description`}
                 control={control}
-                onImprove={(val, idx) => handleImproveContent(`projects.${projIndex}.description.${idx}`, val)}
+                onImprove={(val, idx) => handleImproveContent(`projects.${projIndex}.description.${idx}.text`, val)}
               />
               {(formErrors.projects?.[projIndex] as FieldErrors<UIProject>)?.description && (
                 <span className="text-xs text-accent-red-text">

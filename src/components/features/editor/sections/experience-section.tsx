@@ -66,7 +66,7 @@ export default function ExperienceSection({
               <BulletList
                 name={`workExperience.${expIndex}.description`}
                 control={control}
-                onImprove={(val, idx) => handleImproveContent(`workExperience.${expIndex}.description.${idx}`, val)}
+                onImprove={(val, idx) => handleImproveContent(`workExperience.${expIndex}.description.${idx}.text`, val)}
               />
               {(formErrors.workExperience?.[expIndex] as FieldErrors<UIWorkExperience>)?.description && (
                 <span className="text-xs text-accent-red-text">
