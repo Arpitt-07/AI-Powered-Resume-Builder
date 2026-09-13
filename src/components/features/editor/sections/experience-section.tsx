@@ -2,16 +2,17 @@
 
 import React from "react";
 import { UseFormReturn, useFieldArray, FieldErrors } from "react-hook-form";
-import { UIResume, UIWorkExperience } from "@/types/form.types";
+import { ResumeFormValues, UIWorkExperience } from "@/types/form.types";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import SectionBlock from "../section-block";
+import BulletList from "./bullet-list";
 
 interface ExperienceSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
   handleImproveContent: (field: string, value: string) => void;
   isImproving: boolean;
 }
@@ -38,7 +39,7 @@ export default function ExperienceSection({
           type="button"
           variant="secondary"
           className="text-xs h-8 px-3 rounded-mono"
-          onClick={() => append({ company: "", title: "", startDate: "", description: "" })}
+          onClick={() => append({ company: "", title: "", startDate: "", description: [{ text: "" }] })}
         >
           Add Experience
         </Button>
@@ -61,21 +62,11 @@ export default function ExperienceSection({
               <Input name={`workExperience.${expIndex}.endDate`} label="End Date" />
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-medium text-muted">Description</label>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="text-xs h-7 px-2 rounded-mono"
-                  onClick={() => handleImproveContent(`workExperience.${expIndex}.description`, watch(`workExperience.${expIndex}.description`) || "")}
-                  isLoading={isImproving}
-                >
-                  Improve
-                </Button>
-              </div>
-              <textarea
-                {...register(`workExperience.${expIndex}.description`)}
-                className="px-4 py-3 rounded-mono border border-[var(--studio-border)] bg-background focus:border-foreground focus:ring-1 focus:ring-foreground outline-none min-h-[100px] text-foreground transition-all duration-200"
+              <label className="text-sm font-medium text-muted">Description</label>
+              <BulletList
+                name={`workExperience.${expIndex}.description`}
+                control={control}
+                onImprove={(val, idx) => handleImproveContent(`workExperience.${expIndex}.description.${idx}`, val)}
               />
               {(formErrors.workExperience?.[expIndex] as FieldErrors<UIWorkExperience>)?.description && (
                 <span className="text-xs text-accent-red-text">

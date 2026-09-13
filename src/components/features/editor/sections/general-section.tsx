@@ -2,7 +2,7 @@
 
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
-import { UIResume } from "@/types/form.types";
+import { ResumeFormValues } from "@/types/form.types";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import SectionBlock from "../section-block";
@@ -11,7 +11,7 @@ interface GeneralSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
   handleGenerateSummary: () => void;
   handleImproveContent: (field: string, value: string) => void;
   isGeneratingSummary: boolean;

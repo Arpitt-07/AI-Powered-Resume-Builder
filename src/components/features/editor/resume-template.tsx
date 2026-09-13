@@ -49,7 +49,7 @@ interface SectionTitleProps {
 
 function SectionTitle({ children }: SectionTitleProps) {
   return (
-    <h2 className="text-[13px] font-bold uppercase tracking-wide border-b border-black pb-[2px] mb-2 mt-4">
+    <h2 className="text-[15px] font-bold uppercase tracking-wide border-b border-black pb-[2px] mb-2 mt-4">
       {children}
     </h2>
   );
@@ -62,7 +62,7 @@ interface BulletProps {
 function Bullet({ children }: BulletProps) {
   if (!children) return null;
   return (
-    <li className="ml-4 list-disc marker:text-[8px] text-[11px] leading-[1.35] mb-[2px]">
+    <li className="ml-4 list-disc marker:text-[10px] text-[13px] leading-[1.3] mb-[2px]">
       {children}
     </li>
   );
@@ -77,10 +77,10 @@ interface TwoColRowProps {
 function TwoColRow({ left, right, italic = false }: TwoColRowProps) {
   return (
     <div className="flex justify-between items-baseline">
-      <span className={italic ? "italic text-[11.5px]" : "font-bold text-[11.5px]"}>
+      <span className={italic ? "italic text-[13.5px]" : "font-bold text-[13.5px]"}>
         {left}
       </span>
-      <span className={italic ? "italic text-[11px]" : "font-bold text-[11px]"}>
+      <span className={italic ? "italic text-[13px]" : "font-bold text-[13px]"}>
         {right}
       </span>
     </div>
@@ -110,22 +110,22 @@ export default function ResumeTemplate({ data }: ResumeTemplateProps) {
       style={{
         width: "850px",
         minHeight: "1100px",
-        padding: "48px 56px",
+        padding: "40px 56px",
         fontFamily: "'Times New Roman', Georgia, serif",
       }}
     >
       <div className="text-center mb-4">
         {name && (
           <h1
-            className="text-[26px] font-bold tracking-wide uppercase"
+            className="text-[28px] font-bold tracking-wide uppercase"
             style={{ fontVariant: "small-caps" }}
           >
             {name}
           </h1>
         )}
-        {location && <p className="text-[12px] mt-[2px]">{location}</p>}
+        {location && <p className="text-[13px] mt-[2px]">{location}</p>}
 
-        <p className="text-[11.5px] mt-1 flex justify-center flex-wrap gap-x-3 gap-y-1">
+        <p className="text-[13px] mt-1 flex justify-center flex-wrap gap-x-3 gap-y-1">
           {phone && <span>📞 {phone}</span>}
           {email && (
             <a href={`mailto:${email}`} className="underline">
@@ -139,7 +139,7 @@ export default function ResumeTemplate({ data }: ResumeTemplateProps) {
           )}
         </p>
         {github && (
-          <p className="text-[11.5px] mt-[2px]">
+          <p className="text-[13px] mt-[2px]">
             <a href={github} target="_blank" rel="noreferrer" className="underline">
               🔗 {github.replace(/^https?:\/\//, "")}
             </a>
@@ -149,7 +149,7 @@ export default function ResumeTemplate({ data }: ResumeTemplateProps) {
 
       {summary && (
         <section className="mb-4">
-          <p className="text-[11px] leading-[1.35] text-justify">
+          <p className="text-[13px] leading-[1.3] text-justify">
             {summary}
           </p>
         </section>
@@ -195,11 +195,11 @@ export default function ResumeTemplate({ data }: ResumeTemplateProps) {
             {projects.map((proj, i) => (
               <div key={i}>
                 <div className="flex justify-between items-baseline">
-                  <span className="text-[11.5px]">
+                  <span className="text-[13.5px]">
                     <strong>{proj.title}</strong>
                     {proj.stack && <em> {" "} | {proj.stack}</em>}
                   </span>
-                  <span className="font-bold text-[11px]">{proj.date}</span>
+                  <span className="font-bold text-[13px]">{proj.date}</span>
                 </div>
                 <ul className="mt-1">
                   {(proj.bullets || []).map((b, j) => (
@@ -215,7 +215,7 @@ export default function ResumeTemplate({ data }: ResumeTemplateProps) {
       {Object.keys(technicalSkills).length > 0 && (
         <section>
           <SectionTitle>Technical Skills</SectionTitle>
-          <table className="text-[11.5px]">
+          <table className="text-[13px]">
             <tbody>
               {Object.entries(technicalSkills).map(([label, value], i) => (
                 <tr key={i}>

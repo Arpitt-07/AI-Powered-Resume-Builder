@@ -1,17 +1,14 @@
 "use client";
 
-import React from "react";
 import { UseFormReturn } from "react-hook-form";
-import { UIResume } from "@/types/form.types";
-import Input from "@/components/ui/input";
-import Button from "@/components/ui/button";
+import { ResumeFormValues } from "@/types/form.types";
 import SectionBlock from "../section-block";
 
 interface SkillsSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
 }
 
 export default function SkillsSection({

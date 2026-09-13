@@ -2,7 +2,7 @@
 
 import React from "react";
 import { UseFormReturn, useFieldArray, FieldErrors } from "react-hook-form";
-import { UIResume, UIEducation } from "@/types/form.types";
+import { ResumeFormValues, UIEducation } from "@/types/form.types";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import SectionBlock from "../section-block";
@@ -11,7 +11,7 @@ interface EducationSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
 }
 
 export default function EducationSection({

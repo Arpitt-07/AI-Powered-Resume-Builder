@@ -2,7 +2,7 @@
 
 import React from "react";
 import { UseFormReturn, FieldErrors } from "react-hook-form";
-import { UIResume } from "@/types/form.types";
+import { ResumeFormValues } from "@/types/form.types";
 import { IPersonalInfo } from "@/types/resume.types";
 import Input from "@/components/ui/input";
 import SectionBlock from "../section-block";
@@ -11,7 +11,7 @@ interface PersonalSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
 }
 
 export default function PersonalSection({

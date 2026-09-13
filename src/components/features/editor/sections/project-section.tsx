@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
 import { UseFormReturn, useFieldArray, FieldErrors } from "react-hook-form";
-import { UIResume, UIProject } from "@/types/form.types";
+import { ResumeFormValues, UIProject } from "@/types/form.types";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
 import SectionBlock from "../section-block";
+import BulletList from "./bullet-list";
 
 interface ProjectSectionProps {
   index: number;
   isActive: boolean;
   onFocus: () => void;
-  methods: UseFormReturn<UIResume>;
+  methods: UseFormReturn<ResumeFormValues>;
   handleImproveContent: (field: string, value: string) => void;
   isImproving: boolean;
 }
@@ -38,7 +38,7 @@ export default function ProjectSection({
           type="button"
           variant="secondary"
           className="text-xs h-8 px-3 rounded-mono"
-          onClick={() => append({ title: "", description: "", githubUrl: "", websiteUrl: "", techStack: "" })}
+          onClick={() => append({ title: "", description: [{ text: "" }], githubUrl: "", websiteUrl: "", techStack: "" })}
         >
           Add Project
         </Button>
@@ -61,21 +61,11 @@ export default function ProjectSection({
               <Input name={`projects.${projIndex}.websiteUrl`} label="Website URL" />
             </div>
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-medium text-muted">Description</label>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="text-xs h-7 px-2 rounded-mono"
-                  onClick={() => handleImproveContent(`projects.${projIndex}.description`, watch(`projects.${projIndex}.description`) || "")}
-                  isLoading={isImproving}
-                >
-                  Improve
-                </Button>
-              </div>
-              <textarea
-                {...register(`projects.${projIndex}.description`)}
-                className="px-4 py-3 rounded-mono border border-[var(--studio-border)] bg-background focus:border-foreground focus:ring-1 focus:ring-foreground outline-none min-h-[100px] text-foreground transition-all duration-200"
+              <label className="text-sm font-medium text-muted">Description</label>
+              <BulletList
+                name={`projects.${projIndex}.description`}
+                control={control}
+                onImprove={(val, idx) => handleImproveContent(`projects.${projIndex}.description.${idx}`, val)}
               />
               {(formErrors.projects?.[projIndex] as FieldErrors<UIProject>)?.description && (
                 <span className="text-xs text-accent-red-text">

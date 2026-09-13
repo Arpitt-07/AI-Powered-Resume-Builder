@@ -30,12 +30,12 @@ export default function ResumePreview() {
         company: exp.company,
         role: exp.title,
         dates: `${exp.startDate} ${exp.endDate ? `- ${exp.endDate}` : ""}`,
-        bullets: exp.description ? [exp.description] : [],
+        bullets: exp.description || [],
       })),
       projects: data.projects?.filter(proj => proj.title).map((proj) => ({
         title: proj.title,
         stack: proj.techStack?.join(", "),
-        bullets: proj.description ? [proj.description] : [],
+        bullets: proj.description || [],
       })),
       technicalSkills: skillsString ? {
         "Skills": skillsString,

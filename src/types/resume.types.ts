@@ -10,18 +10,18 @@ export interface IPersonalInfo{
     portfolio:string;
 }
 
-export interface IWorkExpreience{
+export interface IWorkExperience{
     company:string;
     title:string;
     startDate:string;
     endDate?:string;
-    description:string;
+    description:string[];
 
 }
 
 export interface IProject{
     title:string;
-    description:string;
+    description:string[];
     githubUrl:string;
     websiteUrl:string;
     techStack:string[];
@@ -37,13 +37,13 @@ export interface IEducation{
 
 export interface IResume{
     _id?:string;
-    userId?:Types.ObjectId;
+    userId:Types.ObjectId;
     title:string;
     summary:string;
     personalInfo:IPersonalInfo;
-    workExperience?:IWorkExpreience[];
-    education:IEducation[];
-    projects:IProject[];
+    workExperience?:IWorkExperience[];
+    education?:IEducation[];
+    projects?:IProject[];
     certifications:string[];
     skills:string[];
     createdAt?:Date;

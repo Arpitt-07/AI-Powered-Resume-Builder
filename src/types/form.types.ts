@@ -1,6 +1,6 @@
 import { IResume, IPersonalInfo } from "./resume.types";
 
-export interface UIResume {
+export interface ResumeFormValues {
   title: string;
   summary: string;
   personalInfo: IPersonalInfo;
@@ -11,12 +11,16 @@ export interface UIResume {
   certifications: string;
 }
 
+export type UIBullet = {
+  text: string;
+};
+
 export type UIWorkExperience = {
   company: string;
   title: string;
   startDate: string;
   endDate?: string;
-  description: string;
+  description: UIBullet[];
 };
 
 export type UIEducation = {
@@ -28,7 +32,7 @@ export type UIEducation = {
 
 export type UIProject = {
   title: string;
-  description: string;
+  description: UIBullet[];
   githubUrl: string;
   websiteUrl: string;
   techStack: string;

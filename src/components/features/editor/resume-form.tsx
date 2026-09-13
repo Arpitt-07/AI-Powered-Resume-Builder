@@ -8,7 +8,7 @@ import { useUpdateResume } from "@/services/resume.service";
 import { aiService } from "@/services/ai.service";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
-import { UIResume } from "@/types/form.types";
+import { ResumeFormValues } from "@/types/form.types";
 import { IResume } from "@/types/resume.types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useResumeStore } from "@/store/resume-store";
@@ -36,6 +36,12 @@ const stringToArray = (str: unknown) => {
   return [];
 };
 
+const ensureArray = (val: any): string[] => {
+  if (Array.isArray(val)) return val;
+  if (typeof val === 'string') return [val];
+  return [];
+};
+
 export default function ResumeForm({ resumeId, initialData }: ResumeFormProps) {
   const [aiSuggestion, setAiSuggestion] = useState<{ field: string; value: string } | null>(null);
 
@@ -54,19 +60,24 @@ export default function ResumeForm({ resumeId, initialData }: ResumeFormProps) {
   const { mutate: generateSummary, isPending: isGeneratingSummary } = aiService.useGenerateSummary();
   const { mutate: improveContent, isPending: isImproving } = aiService.useImproveContent();
 
-  const transformToBackend = (uiData: UIResume): Partial<IResume> => {
+  const transformToBackend = (uiData: ResumeFormValues): Partial<IResume> => {
     return {
       ...uiData,
       skills: stringToArray(uiData.skills),
       certifications: stringToArray(uiData.certifications),
+      workExperience: uiData.workExperience?.map(exp => ({
+        ...exp,
+        description: exp.description.map(d => d.text)
+      })),
       projects: uiData.projects?.map((p) => ({
         ...p,
         techStack: stringToArray(p.techStack),
+        description: p.description.map(d => d.text)
       })),
     };
   };
 
-  const transformFromBackend = (data: Partial<IResume>): UIResume => {
+  const transformFromBackend = (data: Partial<IResume>): ResumeFormValues => {
     const arrayToString = (arr: string[] | undefined) => arr ? arr.join(", ") : "";
 
     return {
@@ -81,19 +92,23 @@ export default function ResumeForm({ resumeId, initialData }: ResumeFormProps) {
         github: data.personalInfo?.github || "",
         portfolio: data.personalInfo?.portfolio || "",
       },
-      workExperience: data.workExperience || [],
+      workExperience: (data.workExperience || []).map(exp => ({
+        ...exp,
+        description: ensureArray(exp.description).map(text => ({ text })),
+      })),
       education: data.education || [],
       projects: (data.projects || []).map(p => ({
         ...p,
         techStack: arrayToString(p.techStack),
+        description: ensureArray(p.description).map(text => ({ text })),
       })),
       skills: arrayToString(data.skills),
       certifications: arrayToString(data.certifications),
     };
   };
 
-  const methods = useForm<UIResume>({
-    resolver: zodResolver(resumeSchema) as unknown as import("react-hook-form").Resolver<UIResume>,
+  const methods = useForm<ResumeFormValues>({
+    resolver: zodResolver(resumeSchema) as unknown as import("react-hook-form").Resolver<ResumeFormValues>,
     defaultValues: transformFromBackend(initialData),
   });
 
@@ -115,7 +130,7 @@ export default function ResumeForm({ resumeId, initialData }: ResumeFormProps) {
   useEffect(() => {
     const subscription = methods.watch((value) => {
       const timer = setTimeout(() => {
-        const uiData = value as UIResume;
+        const uiData = value as ResumeFormValues;
         const payload = transformToBackend(uiData);
 
         setResumeData(payload);
@@ -175,7 +190,7 @@ export default function ResumeForm({ resumeId, initialData }: ResumeFormProps) {
     }
   };
 
-  const onManualSave = (data: UIResume) => {
+  const onManualSave = (data: ResumeFormValues) => {
     setSaveStatus("saving");
     const payload = transformToBackend(data);
     updateResume({ id: resumeId, data: payload }, {
